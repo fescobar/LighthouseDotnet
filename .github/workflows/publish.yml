@@ -1,0 +1,53 @@
+name: Lighthouse Dotnet
+
+on:
+  push:
+    branches:
+      - "*"
+
+    tags:
+      - v*
+
+  pull_request:
+
+env:
+  SOLUTION: LighthouseDotnet.sln
+  DEV_PROJECT: LighthouseDotnet
+
+jobs:
+  build_release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Pulling code
+        uses: actions/checkout@v2
+
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1.0.5
+
+      - name: Restore dependencies
+        run: nuget restore $SOLUTION
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.x.x
+
+      - name: Build
+        run: |
+          dotnet build $SOLUTION
+
+      - name: Tests
+        run: |
+          dotnet test
+
+      - name: Pack
+        if: success() && startsWith(github.ref, 'refs/tags/v')
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          dotnet pack -p:PackageVersion=${VERSION} $DEV_PROJECT
+
+      - name: Publishing
+        if: success() && startsWith(github.ref, 'refs/tags/v')
+        run: |
+          nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}}

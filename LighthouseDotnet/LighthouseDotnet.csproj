@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+	<Authors>Frank Escobar</Authors>
+	<Description>Auditing, performance metrics, and best practices for Progressive Web Apps in .NET tests.</Description>
+	<PackageProjectUrl>https://github.com/fescobar/LighthouseDotnet</PackageProjectUrl>
+	<RepositoryUrl>https://github.com/fescobar/LighthouseDotnet</RepositoryUrl>
+	<RepositoryType>github</RepositoryType>
+	<PackageTags>lighthouse, audit, performance-metrics, pwa, web, developer-tools, automation, qa, dotnet, docker</PackageTags>
+	<IncludeSymbols>true</IncludeSymbols>
+	<DebugType>embedded</DebugType>
+	<DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="NLog" Version="5.1.2" />
+  </ItemGroup>
+
+</Project>
