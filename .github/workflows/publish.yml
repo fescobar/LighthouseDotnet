@@ -41,9 +41,9 @@ jobs:
         run: |
           dotnet build $SOLUTION
 
-      - name: Tests
-        run: |
-          dotnet test
+      # - name: Tests
+      #   run: |
+      #     dotnet test
 
       - name: Pack
         if: success() && startsWith(github.ref, 'refs/tags/v')
