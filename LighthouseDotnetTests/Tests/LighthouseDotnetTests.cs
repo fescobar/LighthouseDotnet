@@ -46,9 +46,8 @@ namespace LighthouseDotnetTests.Tests
             var reportPath = lh.SaveReportJson(reportsDir, filename, res);
             Console.WriteLine(reportPath);
 
-            var report = File.ReadAllText(reportPath);
-            Console.WriteLine(report);
-            Assert.NotNull(report);
+            var reportContent = File.ReadAllText(reportPath);
+            Assert.False(String.IsNullOrEmpty(reportContent.Trim()));
         }
 
         [Test]
@@ -63,9 +62,8 @@ namespace LighthouseDotnetTests.Tests
             var reportPath = lh.SaveReportHtml(reportsDir, filename, res);
             Console.WriteLine(reportPath);
 
-            var report = File.ReadAllText(reportPath);
-            Console.WriteLine(report);
-            Assert.NotNull(report);
+            var reportContent = File.ReadAllText(reportPath);
+            Assert.False(String.IsNullOrEmpty(reportContent.Trim()));
         }
 
         [Test]
@@ -80,9 +78,8 @@ namespace LighthouseDotnetTests.Tests
             var reportPath = lh.SaveReportCsv(reportsDir, filename, res);
             Console.WriteLine(reportPath);
 
-            var report = File.ReadAllText(reportPath);
-            Console.WriteLine(report);
-            Assert.NotNull(report);
+            var reportContent = File.ReadAllText(reportPath);
+            Assert.False(String.IsNullOrEmpty(reportContent.Trim()));
         }
 
         [Test]
