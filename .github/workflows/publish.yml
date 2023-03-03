@@ -11,6 +11,7 @@ on:
   pull_request:
 
 env:
+  LIGHTHOUSE_VERSION: 10.0.2
   SOLUTION: LighthouseDotnet.sln
   DEV_PROJECT: LighthouseDotnet
 
@@ -19,6 +20,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: lighthouse installing
+        run: npm i lighthouse@$LIGHTHOUSE_VERSION -g
+
       - name: Pulling code
         uses: actions/checkout@v2
 
