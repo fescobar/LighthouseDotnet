@@ -11,7 +11,7 @@ Compatible with newest version from dotnet5 and working from `Docker` containers
 - Note: Project based on https://github.com/dima-horror/lighthouse.net
 
 ## PRE-REQUISITES
-- Install Google CHrome https://www.google.com/chrome/
+- Install Google Chrome https://www.google.com/chrome/
 - Install node from 18x version https://nodejs.org/en/download/
 - Install lighthouse `10.0.2` globally
 ```sh
@@ -19,8 +19,9 @@ npm i lighthouse@10.0.2 -g
 ```
 - Install lighthouse.net into your project via NuGet
 ```
-PM> Install-Package lighthouse.net
+PM> Install-Package LighthouseDotnet
 ```
+- https://www.nuget.org/packages/LighthouseDotnet
 
 ## USAGE
 
@@ -67,5 +68,41 @@ PM> Install-Package lighthouse.net
             var report = File.ReadAllText(reportPath);
             Console.WriteLine(report);
             Assert.NotNull(report);
+        }
+```
+
+```c#
+        [Test]
+        public async Task GetCsvReport()
+        {
+            var lh = new Lighthouse();
+            var res = await lh.Run("http://example.com");
+
+            var reportsDir = "./lighthouse-reports";
+            var filename = $"{Guid.NewGuid()}--{DateTime.Now:dd-MM-yyyy--HH-mm-ss}";
+
+            var reportPath = lh.SaveReportCsv(reportsDir, filename, res);
+            Console.WriteLine(reportPath);
+
+            var reportContent = File.ReadAllText(reportPath);
+            Assert.False(String.IsNullOrEmpty(reportContent.Trim()));
+        }
+```
+
+```c#
+        [Test]
+        public async Task GetJsonReport()
+        {
+            var lh = new Lighthouse();
+            var res = await lh.Run("http://example.com");
+
+            var reportsDir = "./lighthouse-reports";
+            var filename = $"{Guid.NewGuid()}--{DateTime.Now:dd-MM-yyyy--HH-mm-ss}";
+
+            var reportPath = lh.SaveReportJson(reportsDir, filename, res);
+            Console.WriteLine(reportPath);
+
+            var reportContent = File.ReadAllText(reportPath);
+            Assert.False(String.IsNullOrEmpty(reportContent.Trim()));
         }
 ```
